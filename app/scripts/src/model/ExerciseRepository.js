@@ -27,6 +27,6 @@ export default class ExerciseRepository {
   }
 
   getExercise() {
-    return this.exercises[(Math.floor(Math.random * this.exercises.length))];
+    return this.exercises[(Math.floor(Math.random() * this.exercises.length))];
   }
 }
