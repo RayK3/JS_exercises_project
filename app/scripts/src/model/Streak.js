@@ -17,4 +17,22 @@ export default class Streak{
   increment() {
     this.currentStreak++;
   }
+
+  storeRecord() {
+    localStorage.setItem('oneLinerRecord', this.record);
+  }
+
+  retrieveRecord() {
+    var retrievedRecord = parseInt(localStorage.getItem('oneLinerRecord'));
+    if(!retrievedRecord) {
+      return;
+    } else {
+      this.record = retrievedRecord;
+    }
+  }
+
+  resetRecord() {
+    localStorage.removeItem('oneLinerRecord');
+    this.record = 0;
+  }
 }

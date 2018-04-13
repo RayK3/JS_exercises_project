@@ -1,18 +1,24 @@
 export default class DomRunner {
   constructor(controller) {
     this.controller = controller;
+    this.controller.retrieveStored();
   }
 
   display() {
+    this.controller.storeRecord();
     document.body.style.backgroundColor = 'rgba(0, 255, 0, 0.3)';
     var exerciseContainer = document.getElementById("exerciseContainer");
     exerciseContainer.innerHTML = '';
 
     var exerciseDisplay = this.createExerciseElements();
     var createExerciseDisplay = this.createAddExerciseElements();
+    var removeExercisesButton = this.createRemoveExercisesButton();
+    var resetRecordButton = this.createResetRecordButton();
 
     var displayAddButton = document.createElement("BUTTON");
     displayAddButton.setAttribute("id", "displayAddInterface");
+    displayAddButton.style.backgroundColor = 'rgb(40,200,40)';
+    displayAddButton.style.color = 'white';
     displayAddButton.innerHTML = 'Add New Exercise';
 
     var self = this;
@@ -37,6 +43,8 @@ export default class DomRunner {
 
     exerciseContainer.appendChild(exerciseDisplay);
     exerciseContainer.appendChild(displayAddButton);
+    exerciseContainer.appendChild(removeExercisesButton);
+    exerciseContainer.appendChild(resetRecordButton);
     exerciseContainer.appendChild(createExerciseDisplay);
     exerciseContainer.appendChild(streakContainer);
 
@@ -113,6 +121,8 @@ export default class DomRunner {
     var addExerciseButton = document.createElement("BUTTON");
     addExerciseButton.setAttribute("id", "addExerciseButton");
     addExerciseButton.innerHTML = 'Add';
+    addExerciseButton.style.backgroundColor = 'rgb(40,200,40)';
+    addExerciseButton.style.color = 'white';
 
     createExerciseDisplay.appendChild(newTaskInput);
     createExerciseDisplay.appendChild(newSolutionInput);
@@ -128,10 +138,40 @@ export default class DomRunner {
         createExerciseDisplay.style.display = 'none';
         newTaskInput.value = '';
         newSolutionInput.value = '';
+        self.controller.storeExercises();
       }
     });
 
     return createExerciseDisplay;
+  }
+
+  createRemoveExercisesButton() {
+    var removeExercisesButton = document.createElement("button");
+    removeExercisesButton.setAttribute('id', 'removeExercisesButton');
+    removeExercisesButton.innerHTML = 'Remove Stored Exercises';
+    removeExercisesButton.style.backgroundColor = 'rgb(200,40,40)';
+    removeExercisesButton.style.color = 'white';
+    var self = this;
+    removeExercisesButton.addEventListener('click', function() {
+      self.controller.removeStoredExercises();
+      self.controller.setExercises();
+      self.display();
+    });
+    return removeExercisesButton;
+  }
+
+  createResetRecordButton() {
+    var resetRecordButton = document.createElement("button");
+    resetRecordButton.setAttribute('id', 'resetRecordButton');
+    resetRecordButton.innerHTML = 'Reset Record';
+    resetRecordButton.style.backgroundColor = 'rgb(200,40,40)';
+    resetRecordButton.style.color = 'white';
+    var self = this;
+    resetRecordButton.addEventListener('click', function() {
+      self.controller.resetRecord();
+      self.display();
+    });
+    return resetRecordButton;
   }
 
   run() {

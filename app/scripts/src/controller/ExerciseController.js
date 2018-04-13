@@ -23,6 +23,14 @@ export default class ExerciseController {
     return this.streak.currentStreak;
   }
 
+  incrementStreak() {
+    this.streak.increment();
+  }
+
+  resetStreak() {
+    this.streak.reset();
+  }
+
   getRecord() {
     return this.streak.record;
   }
@@ -31,11 +39,28 @@ export default class ExerciseController {
     this.streak.checkAndUpdateRecord();
   }
 
-  resetStreak() {
-    this.streak.reset();
+  storeRecord() {
+    this.streak.storeRecord();
   }
 
-  incrementStreak() {
-    this.streak.increment();
+  setExercises() {
+    this.exRep.setExercises();
+  }
+
+  storeExercises() {
+    this.exRep.storeExercises();
+  }
+
+  retrieveStored() {
+    this.exRep.retrieveExercises();
+    this.streak.retrieveRecord();
+  }
+
+  removeStoredExercises() {
+    this.exRep.removeStoredExercises();
+  }
+
+  resetRecord() {
+    this.streak.resetRecord();
   }
 }
