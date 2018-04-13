@@ -9,7 +9,7 @@ export default class ExerciseRepository {
       ),
       new Exercise(
         'Remove "Apple" and "Orange" from var array = ["Pineapple", "Apple", "Orange"] and add "Pear" using splice().',
-        'array.splice(1,2,"Pear");'
+        'array.splice(1, 2, "Pear");'
       ),
       new Exercise(
         'Add "Pear" to the beginning of var array',
